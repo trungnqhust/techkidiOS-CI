@@ -14,7 +14,9 @@ class GameScene: SKScene {
     var bullets : [SKSpriteNode] = []
     var enemies : [SKSpriteNode] = []
     var lastUpdateTime : NSTimeInterval = -1
-    var lastUpdateTimeEnemy : NSTimeInterval = -1
+    
+    var countBullet = 0
+    var countEnemy = 0
     
     var bulletIntervalCount = 0
     var enemyIntervalCount = 0
@@ -42,7 +44,12 @@ class GameScene: SKScene {
     
     func addBullet() {
         let bullet = SKSpriteNode(imageNamed: "bullet")
-        bullet.position = plane.position
+        bullet.position = CGPoint(x: plane.position.x, y: plane.position.y + plane.frame.size.height / 2 + bullet.frame.size.height / 2)
+        
+        let bulletFly = SKAction.moveByX(0, y: 50, duration: 0.1)
+        
+        bullet.runAction(SKAction.repeatActionForever( bulletFly))
+        
         addChild(bullet)
         bullets.append(bullet)
     }
@@ -50,13 +57,29 @@ class GameScene: SKScene {
         
         plane = SKSpriteNode(imageNamed: "plane3.png")
         plane.position = CGPoint(x: self.frame.size.width/2, y:self.frame.size.height/2)
+        
+        let shot = SKAction.runBlock {
+            self.addBullet()
+        }
+        
+        let shotPeriod = SKAction.sequence([shot, SKAction.waitForDuration(0.2)])
+        
+        let shotForever = SKAction.repeatActionForever(shotPeriod)
+        
+        plane.runAction(shotForever)
         addChild(plane)
     }
     
     func addEnemy() {
         let enemy = SKSpriteNode(imageNamed: "enemy_plane_white_1.png")
         
-        enemy.position = CGPoint(x: self.frame.size.width  / 2, y: self.frame.size.height)
+        let diceRoll = Int(arc4random_uniform(UInt32 (self.frame.size.width)))
+        
+        enemy.position = CGPoint(x: CGFloat (diceRoll) , y: self.frame.size.height)
+        
+        let enemyFly = SKAction.moveByX(0, y: -30, duration: 0.1)
+        
+        enemy.runAction(SKAction.repeatActionForever(enemyFly))
         addChild(enemy)
         enemies.append(enemy)
         
@@ -121,31 +144,24 @@ class GameScene: SKScene {
             let deltaTime = currentTime - lastUpdateTime
             let deltaTimeMiliseconds = deltaTime * 1000
             
-            if deltaTimeMiliseconds > 200 {
+            if deltaTimeMiliseconds > 10 {
                 lastUpdateTime = currentTime
-                addBullet()
+                countEnemy += 1
+                if(countEnemy == 10){
+                    addEnemy()
+                    countEnemy = 0
+                }
             }
         }
+        //
+        //        for bullet in bullets {
+        //            bullet.position.y += 15
+        //        }
         
-        for bullet in bullets {
-            bullet.position.y += 15
-        }
         
-        if lastUpdateTimeEnemy == -1 {
-            lastUpdateTimeEnemy = currentTime
-        } else {
-            let deltaTime = currentTime - lastUpdateTimeEnemy
-            let deltaTimeMilisecondsEnemy = deltaTime * 1000
-            
-            if deltaTimeMilisecondsEnemy > 500 {
-                lastUpdateTimeEnemy = currentTime
-                addEnemy()
-            }
-        }
-        
-        for enemy in enemies {
-            enemy.position.y -= 4
-        }
+        //        for enemy in enemies {
+        //            enemy.position.y -= 4
+        //        }
         
         for (bulletIndex, bullet) in bullets.enumerate() {
             for (enemyIndex, enemy) in enemies.enumerate() {
