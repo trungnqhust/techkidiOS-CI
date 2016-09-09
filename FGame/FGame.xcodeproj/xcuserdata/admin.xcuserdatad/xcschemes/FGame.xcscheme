@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "840C321F1D82CAE00014F5E8"
+               BlueprintIdentifier = "8450D20E1D7477B800D2C1F9"
                BuildableName = "FGame.app"
                BlueprintName = "FGame"
                ReferencedContainer = "container:FGame.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "840C321F1D82CAE00014F5E8"
+            BlueprintIdentifier = "8450D20E1D7477B800D2C1F9"
             BuildableName = "FGame.app"
             BlueprintName = "FGame"
             ReferencedContainer = "container:FGame.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "840C321F1D82CAE00014F5E8"
+            BlueprintIdentifier = "8450D20E1D7477B800D2C1F9"
             BuildableName = "FGame.app"
             BlueprintName = "FGame"
             ReferencedContainer = "container:FGame.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "840C321F1D82CAE00014F5E8"
+            BlueprintIdentifier = "8450D20E1D7477B800D2C1F9"
             BuildableName = "FGame.app"
             BlueprintName = "FGame"
             ReferencedContainer = "container:FGame.xcodeproj">
